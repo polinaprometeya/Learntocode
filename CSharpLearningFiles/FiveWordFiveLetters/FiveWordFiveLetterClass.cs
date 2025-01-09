@@ -1,23 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 internal class FiveWordFiveLetterClass
 {
     private static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
+        Stopwatch sw = Stopwatch.StartNew();
+
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         string filename = "newBeta.txt";
         //string filename = "dataAllPerfect.txt";
 
 
-        string[] fileContentsArray = readData(projectDirectory + "\\" + filename);
+        string[] fileContentsArray = readData(projectDirectory + "\\" + filename); //Read and load data here.
         //modifiedWordList(fileContentsArray);
         Console.Write("Original list word count:  ");
-        Console.WriteLine(fileContentsArray.Count());
+        Console.WriteLine(fileContentsArray.Count()); // check count in original file
         Console.Write("\n");
 
-        List<string> modifiedWords = modifiedWordList(fileContentsArray);
-        List<string> listResult = uniqueWordList(modifiedWords);
+        List<string> modifiedWords = modifiedWordList(fileContentsArray); //check word for word - so they good.
+        List<string> listResult = uniqueWordList(modifiedWords); //check for doublicates.
 
         //foreach (string word in listResult)
         //{
@@ -30,8 +33,10 @@ internal class FiveWordFiveLetterClass
         Console.WriteLine(listResult.Count());
         Console.Write("\n");
 
-        List<List<string>> Listof5letterWord = theFiveWordSet(listResult);
+        // make a list of list. with 5 words with five unique letters , so the whole alphabet represented once.
+        List<List<string>> Listof5letterWord = theFiveWordSet(listResult); 
 
+        //Prints the result on the screen
         for (int i = 0; i < Listof5letterWord.Count; i++)
         {
             Console.Write("{0}: ", i);
@@ -42,6 +47,11 @@ internal class FiveWordFiveLetterClass
             }
             Console.Write("\n");
         }
+        sw.Stop();
+        Console.WriteLine($"Time used: {sw.Elapsed.TotalSeconds:F2} sekunder used");
+        Console.Write("\n");
+        Console.Write("\n");
+
 
     }
 
