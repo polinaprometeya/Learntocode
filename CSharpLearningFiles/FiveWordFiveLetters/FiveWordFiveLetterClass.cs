@@ -1,18 +1,36 @@
-﻿using System.Runtime.InteropServices;
-using System;
-using System.IO;
+﻿using System.Collections.Generic;
+
 internal class FiveWordFiveLetterClass
 {
     private static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-        string filename = "newBeta.txt";
-        //string filename = "dataAllPerfect.txt";
+        //string filename = "newBeta.txt";
+        string filename = "dataAllPerfect.txt";
 
 
         string[] fileContentsArray = readData(projectDirectory + "\\" + filename);
-        List<List<string>> Listof5letterWord = theFiveLetters(fileContentsArray);
+        //modifiedWordList(fileContentsArray);
+        Console.Write("Original list word count:  ");
+        Console.WriteLine(fileContentsArray.Count());
+        Console.Write("\n");
+
+        List<string> modifiedWords= modifiedWordList(fileContentsArray);
+        List<string> listResult = uniqueWordList(modifiedWords);
+
+        foreach (string word in listResult)
+        {
+            Console.Write(word);
+            Console.Write("\n");
+        }
+
+        Console.Write("\n");
+        Console.Write("The count of unique words is: ");
+        Console.WriteLine(listResult.Count());
+        Console.Write("\n");
+
+        List<List<string>> Listof5letterWord = theFiveWordSet(listResult);
 
         for (int i = 0; i < Listof5letterWord.Count; i++)
         {
@@ -29,12 +47,13 @@ internal class FiveWordFiveLetterClass
 
 
     // loading the "perfect" data for first run, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
-    static string[] readData(string filePath)
+    public static string[] readData(string filePath)
     {
-      
+
 
         if (File.Exists(filePath))
-        {  Console.WriteLine("File found");
+        {
+            Console.WriteLine("File found");
             try
             {
                 //string[] fileContentsArray = File.ReadAllLines(dataAllPerfect);
@@ -57,91 +76,102 @@ internal class FiveWordFiveLetterClass
         return null;
     }
 
-    // soooo what if i combine all i tried to learn into one function? It is easier they say , it will be fun they sey.
-    static void modifiedWordList(string[] fileContentsArray)
+    //This is to see if the given word does not repeat characters.
+    public static List<string> modifiedWordList(string[] fileContentsArray)
     {
         List<string> modifiedWordList = new List<string>();
-       
 
         //go through the the perfect data one word at the time
         foreach (string word in fileContentsArray)
+        { bool valid = isWordValid(word);
+            if (valid == true)
             {
-                bool isWordOkay = isFiveLettersWordOkay(word);
-                if (isWordOkay)
+                char[] wordAsCharArray = word.ToCharArray();
+                bool isWordOkay = false;
+
+                for (int i = 0; i < wordAsCharArray.Length - 1; i++)
                 {
-                    modifiedWordList.Add(word);
-                    Console.WriteLine(word);
+                    if (wordAsCharArray[i] == wordAsCharArray[i + 1]) { isWordOkay = false; }
+                    { isWordOkay = true; }
                 }
+
+                if (isWordOkay == true) { modifiedWordList.Add(word); }
             }
-
-        Console.WriteLine("The count of unique words is: ", modifiedWordList.Count());
-
-        uniqueWordList(modifiedWordList);
-    }
-
-
-    static void uniqueWordList(List<string> modifiedWordLis)
-    {for (int i = 0; i< modifiedWordLis.Count()-1; i++)
-        {
-
         }
-        
+
+        return modifiedWordList;
     }
 
-
-    // soooo what if i combine all i tried to learn into one function? It is easier they say , it will be fun they sey.
-    static List<List<string>> theFiveLetters(string[] fileContentList)
+    //here we are removing the words that repeat, if they do. 
+    public static List<string> uniqueWordList(List<string> modifiedWordLis)
     {
-        List<List<string>> fullwordlist = new List<List<string>>();
+        //List<string> uniqueWordList = new List<string>();
+        List<string> uniqueWords = modifiedWordLis.Distinct();
+
+        //List<string> uniqueWordList = new List<string>();
+        //for (int i = 0; i < modifiedWordLis.Count() - 1; i++)
+        //{
+        //      bool stringUniquness = areTwoStringThesame(modifiedWordLis[i], modifiedWordLis[i + 1]);
+        //        if (stringUniquness == false){uniqueWordList.Add($"{modifiedWordLis[i]}"); }
+        //        else { modifiedWordLis.Remove($"{modifiedWordLis[i]}"); }
+        //}
+
+        return uniqueWords;
+    }
+
+    //this is to make sets of 5 words combination. 
+    static List<List<string>> theFiveWordSet(List<string> listResult)
+    {
+        List<List<string>> theFiveWordSet = new List<List<string>>();
 
         //go through the the perfect data one word at the time
-        for (int i = 0; i < fileContentList.Length; i++) //Find Word 1
+        for (int i = 0; i < listResult.Length; i++) //Find Word 1
         {
             List<string> wordList = new List<string>();                         //5-word, word list 
             string alphabetStack = new string("abcdefghijklmnopqrstuvwxyz");    //Alphabet of allowed characters
-            string alphabetStack_temporary = alphabetStack;                     //Temporary Alphabet used for editing before changes are transfered to aphaetStack
+            string alphabetStackTemporary = alphabetStack;                     //Temporary Alphabet used for editing before changes are transfered to aphaetStack
 
-            string word = fileContentList[i];                                               //Get word from the full word list 
-            removeLetters(word, ref alphabetStack_temporary, ref alphabetStack);           //Remove letters used by the word from the alphaber of allowed characters
+            string word = listResult[i];                                               //Get word from the full word list 
+            removeLetters(word, ref alphabetStackTemporary, ref alphabetStack);           //Remove letters used by the word from the alphaber of allowed characters
 
-            if (check(ref alphabetStack_temporary, ref alphabetStack))                  //Chech if 5 unique characters have been removed from the alphabet.
+            if (check(ref alphabetStackTemporary, ref alphabetStack))                  //Chech if 5 unique characters have been removed from the alphabet.
             {
-                wordList.Add(fileContentList[i]);                                       //Add the unique word to the 5 word list.
+                wordList.Add(listResult[i]);                                       //Add the unique word to the 5 word list.
 
-                for (int j = i; j < fileContentList.Length; j++)            //Find Word 2
+                for (int j = i; j < listResult.Length; j++)            //Find Word 2
                 {
-                    word = fileContentList[j];
-                    removeLetters(word, ref alphabetStack_temporary, ref alphabetStack);
+                    word = listResult[j];
+                    removeLetters(word, ref alphabetStackTemporary, ref alphabetStack);
 
-                    if (check(ref alphabetStack_temporary, ref alphabetStack))
+                    if (check(ref alphabetStackTemporary, ref alphabetStack))
                     {
-                        wordList.Add(fileContentList[j]);
+                        wordList.Add(listResult[j]);
 
-                        for (int k = j; k < fileContentList.Length; k++)        //Find Word 3
+                        for (int k = j; k < listResult.Length; k++)        //Find Word 3
                         {
-                            word = fileContentList[k];
-                            removeLetters(word, ref alphabetStack_temporary, ref alphabetStack);
-                            if (check(ref alphabetStack_temporary, ref alphabetStack))
+                            word = listResult[k];
+                            removeLetters(word, ref alphabetStackTemporary, ref alphabetStack);
+                            if (check(ref alphabetStackTemporary, ref alphabetStack))
                             {
-                                wordList.Add(fileContentList[k]);
+                                wordList.Add(listResult[k]);
 
-                                for (int l = k; l < fileContentList.Length; l++)    //Find Word 4
+                                for (int l = k; l < listResult.Length; l++)    //Find Word 4
                                 {
-                                    word = fileContentList[l];
-                                    removeLetters(word, ref alphabetStack_temporary, ref alphabetStack);
-                                    if (check(ref alphabetStack_temporary, ref alphabetStack))
+                                    word = listResult[l];
+                                    removeLetters(word, ref alphabetStackTemporary, ref alphabetStack);
+                                    if (check(ref alphabetStackTemporary, ref alphabetStack))
                                     {
-                                        wordList.Add(fileContentList[l]);
+                                        wordList.Add(listResult[l]);
 
 
-                                        for (int m = l; m < fileContentList.Length; m++)    //Find Word 5
+                                        for (int m = l; m < listResult.Length; m++)    //Find Word 5
                                         {
-                                            word = fileContentList[m];
-                                            removeLetters(word, ref alphabetStack_temporary, ref alphabetStack);
-                                            if (check(ref alphabetStack_temporary, ref alphabetStack))
+                                            word = listResult[m];
+                                            removeLetters(word, ref alphabetStackTemporary, ref alphabetStack);
+                                            if (check(ref alphabetStackTemporary, ref alphabetStack))
                                             {
-                                                wordList.Add(fileContentList[m]);
-                                                fullwordlist.Add(wordList);            //Add the 5 word list to the set of lists.
+                                                wordList.Add(listResult[m]);
+                                                theFiveWordSet.Add(wordList);            //Add the 5 word list to the set of lists.
                                             }
                                         }
                                     }
@@ -152,75 +182,46 @@ internal class FiveWordFiveLetterClass
                 }
             }
         }
-        return fullwordlist;
+        return theFiveWordSet;
     }
 
-    static void removeLetters(string word, ref string alphabetStack_temporary, ref string alphabetStack)
+    static void removeLetters(string word, ref string alphabetStackTemporary, ref string alphabetStack)
     {
-        char[] word_asCharArray = word.ToCharArray();
+        char[] wordAsCharArray = word.ToCharArray();
 
-        alphabetStack_temporary = alphabetStack;
+        alphabetStackTemporary = alphabetStack;
 
         //Cycle through each character of the word
-        foreach (char c in word_asCharArray)
+        foreach (char c in wordAsCharArray)
         {
             //Cycle through the alphabet to see if the word character is present. 
-            foreach (char alphabet in alphabetStack_temporary)
+            foreach (char alphabet in alphabetStackTemporary)
                 if (c == alphabet)
-                { alphabetStack_temporary = alphabetStack_temporary.Replace(c.ToString(), string.Empty); } //Remove the character from the alphaber, so it cannot be reused later.
+                { alphabetStackTemporary = alphabetStackTemporary.Replace(c.ToString(), string.Empty); } //Remove the character from the alphaber, so it cannot be reused later.
         }
     }
 
-    static bool check(ref string alphabetStack_temporary, ref string alphabetStack)
+    static bool check(ref string alphabetStackTemporary, ref string alphabetStack)
     {
         bool fiveUniqueLetters = false;
 
         //Check if 5 new letters have been removed from the temporary alphaber, if true, transfer changes to the alphabet.
-        if (alphabetStack_temporary.Length == alphabetStack.Length - 5)
+        if (alphabetStackTemporary.Length == alphabetStack.Length - 5)
         {
-            alphabetStack = alphabetStack_temporary;
+            alphabetStack = alphabetStackTemporary;
             fiveUniqueLetters = true;
         }
         return fiveUniqueLetters;
     }
 
-
-    static bool isFiveLettersWordOkay(string word)
-        {
-            char[] wordArray = word.ToCharArray();
-            bool isWordOkay = false;
-
-            //check each word for repetition and if the characters are unique  add it to new list
-            for (int i = 0; i < word.Length - 1; i++)
-            {
-                if (wordArray[i] != wordArray[i + 1]) isWordOkay = true; isWordOkay = false;
-            }
-
-            return isWordOkay;
-
-        }
-    public bool isWordValid(string word)
+    //basic test if word is there and it is 5 characters long.
+    public static bool isWordValid( string word)
     {
-        if (word.Length == 5) return true; return false;
+        if (word.Length == 5 && word != null) return true; return false;
     }
 
-    // Products are equal if their names and product numbers are equal.
-    public bool isWordUnique(string currentWord, string nextWord)
-    {
-        string x = currentWord;
-        string y = nextWord;
-
-
-        //Check whether any of the compared objects is null.
-        if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
-            return false;
-
-        //Check whether the compared objects reference the same data.
-        if (Object.ReferenceEquals(x, y)) return true; return false;
-
-    }
-
-    public bool areTwoStringThesame(string firstString, string secondString)
+    //Products are equal if their names and product numbers are equal.
+    public static bool areTwoStringThesame(string firstString, string secondString)
     {
         bool isSame = true;
 
