@@ -106,73 +106,73 @@
 
 // //5.10.1.8
 
-// function fibbRec(n) { 
-//     temp1 = 0;
-//     temp2 = 1;
-//     next_value = 0;
+function fibbRec(n) { 
+    temp1 = 0;
+    temp2 = 1;
+    next_value = 0;
 
-// for(i=0; i<n; i++){
-//     next_value = temp1 + temp2;
-//     temp1 = temp2;
-//     temp2 = next_value;
-// }
-// return temp1;
-// } 
+for(i=0; i<n; i++){
+    next_value = temp1 + temp2;
+    temp1 = temp2;
+    temp2 = next_value;
+}
+return temp1;
+} 
 
  
-// console.log(fibbRec(0)); // -> 0
-// console.log(fibbRec(1)); // -> 1
-// console.log(fibbRec(4)); // -> 3
-// console.log(fibbRec(7)); // -> 13
-// console.log(fibbRec(9)); // -> 34
-// console.log(fibbRec(11)); // -> 89
+console.log(fibbRec(0)); // -> 0
+console.log(fibbRec(1)); // -> 1
+console.log(fibbRec(4)); // -> 3
+console.log(fibbRec(7)); // -> 13
+console.log(fibbRec(9)); // -> 34
+console.log(fibbRec(11)); // -> 89
     
 
 
 //5.10.1.7
 
-// let fibbRec =  (n) => { if (n != 0) {n === 1 ? retVal = 1 : retVal = fibbRec(n - 1) + fibbRec(n - 2); return retVal; } else {return retVal = 0;}} 
+let fibbRec =  (n) => { if (n != 0) {n === 1 ? retVal = 1 : retVal = fibbRec(n - 1) + fibbRec(n - 2); return retVal; } else {return retVal = 0;}} 
 
  
-// console.log(fibbRec(0)); // -> 0
-// console.log(fibbRec(1)); // -> 1
-// console.log(fibbRec(4)); // -> 3
-// console.log(fibbRec(7)); // -> 13
-// console.log(fibbRec(9)); // -> 34
-// console.log(fibbRec(11)); // -> 89
+console.log(fibbRec(0)); // -> 0
+console.log(fibbRec(1)); // -> 1
+console.log(fibbRec(4)); // -> 3
+console.log(fibbRec(7)); // -> 13
+console.log(fibbRec(9)); // -> 34
+console.log(fibbRec(11)); // -> 89
     
 
 //5.10.1.6
 
-// let fibbRec = function (n) {
-//     let retVal = 0;
-//     if (n != 0) {
-//         if (n === 1) {
-//             retVal = 1;
-//         } else {
-//             retVal = fibbRec(n - 1) + fibbRec(n - 2);
-//         }
+let fibbRec = function (n) {
+    let retVal = 0;
+    if (n != 0) {
+        if (n === 1) {
+            retVal = 1;
+        } else {
+            retVal = fibbRec(n - 1) + fibbRec(n - 2);
+        }
+    }
+    return retVal;
+}
+
+console.log(fibbRec(4)); // -> 3
+console.log(fibbRec(7)); // -> 13
+console.log(fibbRec(9)); // -> 34
+console.log(fibbRec(11)); // -> 89
+
+// wrong
+// function fibonacci (f) {
+//     while (n > 1) {
+//         result = n-1 + n-2;
+//         n--;
 //     }
-//     return retVal;
+//     return result;
 // }
+// console.log(fibonacci(9)); 
 
-// console.log(fibbRec(4)); // -> 3
-// console.log(fibbRec(7)); // -> 13
-// console.log(fibbRec(9)); // -> 34
-// console.log(fibbRec(11)); // -> 89
-
-// // wrong
-// // function fibonacci (f) {
-// //     while (n > 1) {
-// //         result = n-1 + n-2;
-// //         n--;
-// //     }
-// //     return result;
-// // }
-// // console.log(fibonacci(9)); 
-
-// // let fibonacciNumber = (f) => f == 1 ? 1 : fibonacci(f);
-// // console.log(fibonacciNumber(9));
+// let fibonacciNumber = (f) => f == 1 ? 1 : fibonacci(f);
+// console.log(fibonacciNumber(9));
 
 
 
@@ -184,16 +184,16 @@ Use the functions setInterval, clearInterval and setTimeout.*/
 
 
 //based on their solution
-// let counter = 10;
-// let intervalId = setInterval(function () {
-//     console.log(counter--);
-// }, 1000);
-// setTimeout(function () {
-//     clearInterval(intervalId)
-// }, 11000);
+let counter = 10;
+let intervalId = setInterval(function () {
+    console.log(counter--);
+}, 1000);
+setTimeout(function () {
+    clearInterval(intervalId)
+}, 11000);
 
 
-//------------------wrong
+// ------------------wrong
 // let interval = function() {
 //     let timerId = setInterval(1000) /*ms*/;
 //     setTimeout(function(){clearInterval(timerId);}, 5500);
@@ -259,28 +259,28 @@ Use the functions setInterval, clearInterval and setTimeout.*/
 
 // //Exercise 5.10.1.4
 
-// let add = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a + b;
-// let sub = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a - b;
-// let mult = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a * b;
+let add = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a + b;
+let sub = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a - b;
+let mult = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a * b;
 
-// let action =  function(callback, a, b){
-//     console.log(callback(a,b));
+let action =  function(callback, a, b){
+    console.log(callback(a,b));
 
-// }
+}
 
-// action(add, 12, 10); // -> 22
-// action(sub, 12, 10); // -> 2
-// action(mult, 10, 10.1); // -> NaN
+action(add, 12, 10); // -> 22
+action(sub, 12, 10); // -> 2
+action(mult, 10, 10.1); // -> NaN
 
 
 
 // //Exercise 5.10.1.3
  
-// let add = (a, b) => (!Number.isInteger(a) || !Number.isInteger(b)) ? NaN : a + b;
-// let sub = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a - b;
-// let mult = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN :  a * b;
+let add = (a, b) => (!Number.isInteger(a) || !Number.isInteger(b)) ? NaN : a + b;
+let sub = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN : a - b;
+let mult = (a, b) => !Number.isInteger(a) || !Number.isInteger(b) ? NaN :  a * b;
 
-// console.log("control", add(10,1), sub(10,1) , mult(10,1));
+console.log("control", add(10,1), sub(10,1) , mult(10,1));
 
 
 /**Exercise 5.10.1.2: 
@@ -292,45 +292,45 @@ Write three functions with the names add, sub, and mult, which will take two num
 Example of use and expected results:*/
 
 
-// // let input1 =  Number(prompt("add first number"));
-// // let input2 = Number(prompt("add second number"));
+// let input1 =  Number(prompt("add first number"));
+// let input2 = Number(prompt("add second number"));
 
-// function add(a,b){
-//     if(Number.isInteger(a) && Number.isInteger(b)){
-//         return a + b;
-//     } else {return NaN;} 
+function add(a,b){
+    if(Number.isInteger(a) && Number.isInteger(b)){
+        return a + b;
+    } else {return NaN;} 
+}
+
+function sub(a,b){
+    if(Number.isInteger(a) && Number.isInteger(b)){
+        return a - b;
+    } else {return NaN;}   
+}
+
+function mult(a,b){
+    if(Number.isInteger(a) && Number.isInteger(b)){
+        return a * b;
+    } else {return NaN;}
+}
+
+// function operations(a, b, add, sub, mult){
+//      if(typeof(a) === 'number' && typeof(b)  === 'number' ){
+//       add(a,b);
+//       sub(a,b);
+//       mult(a,b);
+//         alert ("Your numbers give reults of addition:", add, "subtraction", sub , "and multiplication", mult);
+//         console.log( "control", a, b, add, sub, mult);
+//  }
 // }
 
-// function sub(a,b){
-//     if(Number.isInteger(a) && Number.isInteger(b)){
-//         return a - b;
-//     } else {return NaN;}   
-// }
+// operations(input1, input2, add, sub, mult);
 
-// function mult(a,b){
-//     if(Number.isInteger(a) && Number.isInteger(b)){
-//         return a * b;
-//     } else {return NaN;}
-// }
-
-// // function operations(a, b, add, sub, mult){
-// //      if(typeof(a) === 'number' && typeof(b)  === 'number' ){
-// //       add(a,b);
-// //       sub(a,b);
-// //       mult(a,b);
-// //         alert ("Your numbers give reults of addition:", add, "subtraction", sub , "and multiplication", mult);
-// //         console.log( "control", a, b, add, sub, mult);
-// //  }
-// // }
-
-// // operations(input1, input2, add, sub, mult);
-
-// console.log(add(12, 10)); // -> 22
-// console.log(sub(12, 10)); // -> 2
-// console.log(mult(12, 10.1)); // -> NaN
+console.log(add(12, 10)); // -> 22
+console.log(sub(12, 10)); // -> 2
+console.log(mult(12, 10.1)); // -> NaN
 
 
-// console.log( "control", add(10,1), sub(10,1), mult(10,1));
+console.log( "control", add(10,1), sub(10,1), mult(10,1));
 
 
 
@@ -340,66 +340,66 @@ This method takes as an argument a function that will compare two elements of th
 The function should return zero if we consider the arguments to be the same, a value less than zero if we consider the first one to be smaller than the second, and a value larger than zero otherwise. 
 Take a look at the example: */
 
-// let numbers = [50, 10, 40, 30, 20];
-// function compareNumbers(a, b) {
-//      let retVal = 0;
-//      if (a < b) {
-//          retVal = -1;
-//      } else if(a > b) {
-//          retVal = 1;
-//      }
-//      return retVal;
-// }
-// let sorted = numbers.sort(compareNumbers);
-// console.log(sorted); // [10, 20, 30, 40, 50]
+let numbers = [50, 10, 40, 30, 20];
+function compareNumbers(a, b) {
+     let retVal = 0;
+     if (a < b) {
+         retVal = -1;
+     } else if(a > b) {
+         retVal = 1;
+     }
+     return retVal;
+}
+let sortedNormal = numbers.sort(compareNumbers);
+console.log(sorsortedNormalted); // [10, 20, 30, 40, 50]
 
 //1-----------ternary conditional operator
-// let numbers = [50, 10, 40, 30, 20];
-// function compareNumbers(a, b) {
-//      let retVal = a < b ? -1 : 1;
-//      return retVal;
-// }
-// let sorted = numbers.sort(compareNumbers);
-// console.log(sorted); // [10, 20, 30, 40, 50]
+
+function compareNumbersTernary(a, b) {
+     let retVal = a < b ? -1 : 1;
+     return retVal;
+}
+
+console.log(sorted); // [10, 20, 30, 40, 50]
 
 //2------------ anonymouse function
-// let numbers = [50, 10, 40, 30, 20];
-// let retVal = function(a, b) {
-//      a < b ? -1 : 1;
-//     return retVal;
-// }
-// let sorted = numbers.sort(retVal);
-// console.log(sorted); // [10, 20, 30, 40, 50]
+
+let retValAnonymouse = function(a, b) {
+     a < b ? -1 : 1;
+    return retValAnonymouse;
+}
+
+console.log(sorted); // [10, 20, 30, 40, 50]
 
 //3------------ arrow function
-// let numbers = [50, 10, 40, 30, 20];
-// let retVal = (a, b) => a < b ? -1 : 1;
 
-// let sorted = numbers.sort(retVal);
-// console.log(sorted); // [10, 20, 30, 40, 50]
+let retVal = (a, b) => a < b ? -1 : 1;
+
+let sortedArrow = numbers.sort(retVal);
+console.log(sortedArrow); // [10, 20, 30, 40, 50]
 
 //4---------------- compressed arrow function
-// let numbers = [50, 10, 40, 30, 20];
-// let sorted = numbers.sort(retVal = (a, b) => a < b ? -1 : 1);
-// console.log(sorted); // [10, 20, 30, 40, 50]
+
+let sortedComp = numbers.sort(retVal = (a, b) => a < b ? -1 : 1);
+console.log(sortedComp); // [10, 20, 30, 40, 50]
 
 //cisco answer ?? like what ???
-// let number = prompt("Enter a random number");
-// if(number > 90 && number < 110) {
-//     alert("Bingo!");
-// } else {
-//     alert("Miss");
-// }
+let number = prompt("Enter a random number");
+if(number > 90 && number < 110) {
+    alert("Bingo!");
+} else {
+    alert("Miss");
+}
 
 //5-----------I will try to combine their odd answer and my stuff
-// let number = prompt("Enter a random number between 1-110");
-// let answer = (number > 90 && number < 110) ? alert("Bingo!"): alert("Miss");
+let numberCombination = prompt("Enter a random number between 1-110");
+let answer = (numberCombination > 90 && numberCombination < 110) ? alert("Bingo!"): alert("Miss");
  
-// let numbers = [50, 10, 40, 30, 20];
-// numbers.push(Number(number)); //this pushes the number in as a string, and needs to be converted to an integer
-// let sorted = numbers.sort(retVal = (a, b)=>{return b-a;});
 
-// console.log(sorted, "," , numbers[0]); // [10, 20, 30, 40, 50], ?? should be the highest number
+numbers.push(Number(numberCombination)); //this pushes the number in as a string, and needs to be converted to an integer
+let sorted = numbers.sort(retVal = (a, b)=>{return b-a;});
+
+console.log(sorted, "," , numberCombination[0]); // [10, 20, 30, 40, 50], ?? should be the highest number
 
 
 // //4.1.12
