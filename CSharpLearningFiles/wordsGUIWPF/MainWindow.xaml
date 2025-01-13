@@ -1,0 +1,115 @@
+﻿<Window x:Class="wordsGUIWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wordsGUIWPF"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="450" Width="800" Background="#738276">
+
+    <Window.Resources>
+        <!-- Style for Sliders -->
+        <Style TargetType="Slider">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Background" Value="#E1E1E1" />
+            <Setter Property="Foreground" Value="#2D2D2D" />
+            <Setter Property="TickFrequency" Value="1" />
+            <Setter Property="IsSnapToTickEnabled" Value="True" />
+            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="Width" Value="360" />
+            <Setter Property="TickPlacement" Value="BottomRight" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <!-- Style for Buttons (including hover effect) -->
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Background" Value="#4D5D53" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderBrush" Value="#4D5D53" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Style.Triggers>
+                <!-- Hover effect -->
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Background" Value="#388E3C" />
+                    <Setter Property="BorderBrush" Value="#2E7D32" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <!-- Title -->
+        <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold" Foreground="#333" HorizontalAlignment="Center" Margin="0,0,0,20" />
+
+        <!-- Dashboard Sections -->
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Section 1: Input TextBox -->
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="User Input" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                    <Grid>
+                        <TextBox Name="InputTextBox" Width="360" Height="30" Margin="0,0,10,0" FontSize="14" TextChanged="InputTextBox_TextChanged" />
+                        <TextBlock Text="Enter text here..." 
+                                   Foreground="Gray" 
+                                   VerticalAlignment="Center" 
+                                   Margin="5,0,0,0"
+                                   IsHitTestVisible="False"
+                                   x:Name="PlaceholderText"
+                                   FontSize="14">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=InputTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Text, ElementName=InputTextBox}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Section 2: Sliders -->
+            <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Controls" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                    <Slider Name="Slider1" Minimum="0" Maximum="100" Margin="0,10" />
+                    <Slider Name="Slider2" Minimum="0" Maximum="100" Margin="0,10" />
+                </StackPanel>
+            </Border>
+
+            <!-- Section 3: Buttons -->
+            <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Name="FilePickerButton" Content="Pick a File" Click="FilePickerButton_Click" />
+                    <Button x:Name="ResetButton" Content="Reset Sliders" Click="ResetButton_Click" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

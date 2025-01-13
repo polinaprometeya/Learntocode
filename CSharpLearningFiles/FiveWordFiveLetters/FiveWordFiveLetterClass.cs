@@ -9,7 +9,7 @@ internal class FiveWordFiveLetterClass
     public static List<string> _solutions;
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!"); 
+        Console.WriteLine("Hello, World!");
         Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
 
         //string filename = "wordsAlpha.txt";
@@ -18,7 +18,7 @@ internal class FiveWordFiveLetterClass
 
 
         string[] fileContentsArray = readData(filename); //Read and load data here into an Array. You cannot chnage an array in c#.
- 
+
         Console.Write("Original list word count:  ");
         Console.WriteLine(fileContentsArray.Count()); // check word count in original file
         Console.Write("\n");
@@ -27,7 +27,7 @@ internal class FiveWordFiveLetterClass
         _solutions = new List<string>(); //making new string 
         _dictionary = uniqueWordDictionary(modifiedWords); // prooning the modifiedWordList word with BIT stuff to remove doublicates , anagrams etc.
 
-       
+
         recurciveFiveWordSet(_dictionary.Keys.ToArray(), 0, 0, new List<string>());
 
         // Print a list of strings. Each string represents a set of 5 words with five unique letters, each set have alphabet represented once. 
