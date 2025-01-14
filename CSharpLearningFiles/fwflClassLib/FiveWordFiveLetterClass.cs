@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace fwflClassLib
 {
@@ -46,7 +43,12 @@ namespace fwflClassLib
                 handler(this, e);
             }
         }
-            
+
+       //public void IsIndeterminate()
+       // {
+
+       // }
+
 
         public void Run()
         {

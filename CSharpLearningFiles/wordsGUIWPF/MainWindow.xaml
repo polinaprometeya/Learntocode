@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wordsGUIWPF"
         mc:Ignorable="d"
-        Title="Dashboard" Height="800" Width="600" Background="#738276">
+        Title="Dashboard" Height="730" Width="600" Background="#738276">
 
     <Window.Resources>
         <!-- Style for Sliders -->
@@ -44,10 +44,7 @@
                     <Setter Property="BorderBrush" Value="#828D86" />
                 </DataTrigger>
             </Style.Triggers>
-            <!--#endregion-->
-            <!-- Colour source:https://www.color-hex.com/color/828d86 -->
         </Style>
-
     </Window.Resources>
 
     <Grid Margin="20">
@@ -55,8 +52,9 @@
         <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold" Foreground="#1E2521" HorizontalAlignment="Center" Margin="0,0,0,20" />
 
         <!-- Dashboard Sections -->
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0" Height="500">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0" Height="644">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -83,25 +81,32 @@
                 </StackPanel>
             </Border>
 
-            <!-- Section 2: Sliders -->
+            <!-- Section 2: Word Length Slider -->
             <Border Grid.Row="1" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel>
-                    <TextBlock Text="Controls" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
-                    <Slider Name="Slider1" Minimum="0" Maximum="100" Margin="0,10" />
-                    <Slider Name="Slider2" Minimum="0" Maximum="100" Margin="0,10" />
+                    <TextBlock Text="Word Length" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
+                    <Slider Name="Slider1" Minimum="5" Maximum="5" Margin="0,10" />
                 </StackPanel>
             </Border>
 
-            <!-- Section 3: ProgressBar -->
+            <!-- Section 3: Number of Words Slider -->
             <Border Grid.Row="2" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel>
-                    <TextBlock Text="Progress" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
-                    <ProgressBar Name="ProgressBar1" Background = "#C0C6C2" Minimum="0" Maximum="100" Height="20" Margin="0,10" Value="{Binding Percent, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Number of Words" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
+                    <Slider Name="Slider2" Minimum="1" Maximum="5" Margin="0,10" />
                 </StackPanel>
             </Border>
 
-            <!-- Section 4: Buttons -->
+            <!-- Section 4: ProgressBar -->
             <Border Grid.Row="3" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Progress" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
+                    <ProgressBar Name="ProgressBar1" Background="#C0C6C2" Minimum="0" Maximum="100" Height="20" Margin="0,10" Value="{Binding Percent, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Section 5: Buttons -->
+            <Border Grid.Row="4" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="FilePickerButton" Content="Pick a File" Click="FilePickerButton_Click" />
                 </StackPanel>
@@ -110,4 +115,3 @@
 
     </Grid>
 </Window>
-

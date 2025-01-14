@@ -52,23 +52,23 @@ namespace wordsGUIWPF
 
 
 
-        //This is listener? Listen to an event? -- step 4 --
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
+        ////This is listener? Listen to an event? -- step 4 --
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
 
-            MaxPercent = 100;
-            IsIndeterminate = true;
-            SearchThread searchThread = new SearchThread("TestFile");
-            searchThread.SearchIndex += SearchThread_SearchIndex; //Add event handler
-            await searchThread.DoWork();
-        }
+        //    MaxPercent = 100; // set max value
+        //    IsIndeterminate = true; //there is 
+        //    SearchThread searchThread = new SearchThread("TestFile");
+        //    searchThread.SearchIndex += SearchThread_SearchIndex; //Add event handler
+        //    await searchThread.DoWork();
+        //}
 
-        // Handle event -- Method that is listening to event? -- step 5 --
-        private void SearchThread_SearchIndex(object? sender, int e)
-        {
-            if (IsIndeterminate) IsIndeterminate = false;
-            Percent = e;
-        }
+        //// Handle event -- Method that is listening to event? -- step 5 --
+        //private void SearchThread_SearchIndex(object? sender, int e)
+        //{
+        //    if (IsIndeterminate) IsIndeterminate = false;
+        //    Percent = e;
+        //}
 
 
 
