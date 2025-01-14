@@ -24,17 +24,17 @@ namespace wordsGUIWPF
     {
         public int _percent = 0; // percent global variable
 
-        ////nedarv INotifyPropertyChanged  ////PropertyChanged is event name -- step 2
+        ////nedarv INotifyPropertyChanged -PropertyChanged is event name -- step 2 --
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        ////Call the event -- step 3
+        ////Call the event -- step 3 --
         protected void NotifyPropertyChnage(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        ////This binding to to percent bar. Value = "{Binding Percent, UpdateSourceTrigger=PropertyChnaged}
+        ////This binding to to percent bar. Binding method called . Value = "{Binding Percent, UpdateSourceTrigger=PropertyChnaged}"
         public int Percent
         {
             get { return _percent; }
@@ -42,7 +42,17 @@ namespace wordsGUIWPF
         }
 
 
-        //Skab en delegate -- step 1
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FiveWordFiveLetters\\newBeta.txt");
+            this.DataContext = this; //This is usually forgotten? Husk :D
+        }
+
+
+
+        //This is listener? Listen to an event? -- step 4 --
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -53,23 +63,13 @@ namespace wordsGUIWPF
             await searchThread.DoWork();
         }
 
-        // Handle event --
+        // Handle event -- Method that is listening to event? -- step 5 --
         private void SearchThread_SearchIndex(object? sender, int e)
         {
             if (IsIndeterminate) IsIndeterminate = false;
             Percent = e;
         }
 
-
-
-
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FiveWordFiveLetters\\newBeta.txt");
-            this.DataContext = this; //This is usually forgotten? Husk :D
-        }
 
 
 
