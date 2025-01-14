@@ -61,7 +61,7 @@ namespace fwflClassLib
 
         }
 
-
+        
         // loading the "perfect" data for first run, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
         public  string[] readData(string filePath)
         {
@@ -160,6 +160,6 @@ namespace fwflClassLib
             return dictionary;
         }
 
-
+        privet async void Button_Click(object sender, RoutedEventArgs e) { }
     }
 }
