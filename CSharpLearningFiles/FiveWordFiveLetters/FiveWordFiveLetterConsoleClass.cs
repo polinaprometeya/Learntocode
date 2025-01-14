@@ -1,7 +1,7 @@
 ﻿
 using System.Diagnostics;
 
-internal class FiveWordFiveLetterClass
+internal class FiveWordFiveLetterConsoleClass
 {
     //public static int _wordLength = 5;
     //public static int _wordCount = 5;

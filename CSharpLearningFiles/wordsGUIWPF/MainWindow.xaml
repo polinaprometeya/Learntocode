@@ -5,11 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wordsGUIWPF"
         mc:Ignorable="d"
-        Title="Dashboard" Height="450" Width="800" Background="#738276">
+        Title="Dashboard" Height="800" Width="600" Background="#738276">
 
     <Window.Resources>
-        <!--Style colour palette source: https://www.color-hex.com/color/4d5d53-->
-
         <!-- Style for Sliders -->
         <Style TargetType="Slider">
             <Setter Property="Height" Value="20" />
@@ -46,6 +44,8 @@
                     <Setter Property="BorderBrush" Value="#828D86" />
                 </DataTrigger>
             </Style.Triggers>
+            <!--#endregion-->
+            <!-- Colour source:https://www.color-hex.com/color/828d86 -->
         </Style>
 
     </Window.Resources>
@@ -55,8 +55,9 @@
         <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold" Foreground="#1E2521" HorizontalAlignment="Center" Margin="0,0,0,20" />
 
         <!-- Dashboard Sections -->
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0" Height="500">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -66,20 +67,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- Section 1: TextBox && Style -->
-            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
+            <!-- Section 1: TextBox -->
+            <Border Grid.Row="0" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel>
-                    <TextBox Text="Here is some text , that describes something, where you sort of explain what to do and so on." 
+                    <TextBox Text="Here is some text, that describes something, where you sort of explain what to do and so on." 
                              FontSize="14" 
                              FontWeight="Light" 
-                             IsHitTestVisible ="False" 
-                             Background ="#EDEEED" 
-                             Margin ="5,0,0,0" 
-                             Width ="360" 
+                             IsHitTestVisible="False" 
+                             Background="#EDEEED" 
+                             Margin="5,0,0,0" 
+                             Width="360" 
                              TextWrapping="Wrap"
-                             VerticalAlignment ="Center" 
-                             HorizontalAlignment ="Left" />
-           
+                             VerticalAlignment="Center" 
+                             HorizontalAlignment="Left" />
                 </StackPanel>
             </Border>
 
@@ -92,13 +92,22 @@
                 </StackPanel>
             </Border>
 
-            <!-- Section 3: Buttons -->
+            <!-- Section 3: ProgressBar -->
             <Border Grid.Row="2" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Progress" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
+                    <ProgressBar Name="ProgressBar1" Background = "#C0C6C2" Minimum="0" Maximum="100" Height="20" Margin="0,10" Value="{Binding Percent, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Section 4: Buttons -->
+            <Border Grid.Row="3" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="FilePickerButton" Content="Pick a File" Click="FilePickerButton_Click" />
-                    <Button x:Name="ResetButton" Content="Reset Sliders" Click="ResetButton_Click" />
                 </StackPanel>
             </Border>
         </Grid>
+
     </Grid>
 </Window>
+

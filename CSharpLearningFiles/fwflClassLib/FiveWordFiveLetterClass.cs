@@ -23,12 +23,35 @@ namespace fwflClassLib
             this._filename = filename;
         
         }
-        private  void Run()
+
+        public Task DoWork()
+        {
+            return Task.Run(() =>
+            {
+                for (int i = 0; i <= 100; i++)
+                {
+                    Thread.Sleep(100);
+                    OnUpdateSearchIndex(i);
+                }
+            });
+        }
+
+        public event EventHandler<int> SearchIndex;
+
+        protected virtual void OnUpdateSearchIndex(int e)
+        {
+            EventHandler<int> handler = SearchIndex;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+            
+
+        public void Run()
         {
             Console.WriteLine("Hello, World!");
             Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
-
-
 
 
             string[] fileContentsArray = readData(_filename); //Read and load data here into an Array. You cannot chnage an array in c#.
@@ -160,6 +183,7 @@ namespace fwflClassLib
             return dictionary;
         }
 
-        privet async void Button_Click(object sender, RoutedEventArgs e) { }
+
+        
     }
 }
