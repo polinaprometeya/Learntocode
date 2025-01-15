@@ -1,35 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace fwflClassLib
 {
-    public  class FiveWordFiveLetterClass
+    public class FiveWordFiveLetterClass
     {
 
-        public int _wordLength;
-        public int _wordCount;
-        public  Dictionary<int, string> _dictionary;
-        public  List<string> _solutions;
-        //string filename = "wordsAlpha.txt";
-        //string filename = "dataAllPerfect.txt";
-        string _filename;
+        private int _wordLength;
+        private int _wordCount;
+        private Dictionary<int, string> _dictionary;
+        public List<string> _solutions;
 
-        public  FiveWordFiveLetterClass(string filename, int _wordLength = 5, int _wordCount = 5) 
-        { 
+        private string _filename;
+
+        public FiveWordFiveLetterClass(string filename, int wordLength = 5, int wordCount = 5)
+        {
             this._filename = filename;
-        
+            _wordCount = wordCount;
+            _wordLength = wordLength;
         }
 
         public Task DoWork()
         {
             return Task.Run(() =>
             {
-                for (int i = 0; i <= 100; i++)
-                {
-                    Thread.Sleep(100);
-                    OnUpdateSearchIndex(i);
-                }
+                Run();
             });
         }
 
@@ -44,10 +38,10 @@ namespace fwflClassLib
             }
         }
 
-       //public void IsIndeterminate()
-       // {
+        //public void IsIndeterminate()
+        // {
 
-       // }
+        // }
 
 
         public void Run()
@@ -86,9 +80,9 @@ namespace fwflClassLib
 
         }
 
-        
+
         // loading the "perfect" data for first run, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
-        public  string[] readData(string filePath)
+        public string[] readData(string filePath)
         {
 
 
@@ -118,7 +112,7 @@ namespace fwflClassLib
         }
 
         // this checks 
-        private  void recurciveFiveWordSet(int[] keys, int index, int mask, List<string> words)
+        private void recurciveFiveWordSet(int[] keys, int index, int mask, List<string> words)
         {
             for (int i = index; i < keys.Length; i++)
             {
@@ -135,7 +129,11 @@ namespace fwflClassLib
                     {
                         recurciveFiveWordSet(keys, i + 1, mask | keys[i], newList);
                     }
-
+                    
+                }
+                if (mask == 0)
+                {
+                    OnUpdateSearchIndex(i * 100 / keys.Length);
                 }
             }
 
@@ -143,13 +141,13 @@ namespace fwflClassLib
         }
 
         //basic test if word is there and it is 5 characters long.
-        public  bool isWordValid(string word)
+        public bool isWordValid(string word)
         {
             if (word.Length == _wordLength) return true; return false;
         }
 
         //This is to see if the given word does not repeat characters.
-        public  List<string> modifiedWordList(string[] fileContentsArray)
+        public List<string> modifiedWordList(string[] fileContentsArray)
         {
             List<string> modifiedWordList = new List<string>();
 
@@ -167,7 +165,7 @@ namespace fwflClassLib
 
         //  We are making a new collection of keys and values called dictionery.
         //  Foreach proons the list of words by translating to binery value , and before adding a value to the list it checks if the binery value is unique.
-        private  Dictionary<int, string> uniqueWordDictionary(List<string> modifiedWords)
+        private Dictionary<int, string> uniqueWordDictionary(List<string> modifiedWords)
         {
             var dictionary = new Dictionary<int, string>();
 
@@ -186,6 +184,6 @@ namespace fwflClassLib
         }
 
 
-        
+
     }
 }

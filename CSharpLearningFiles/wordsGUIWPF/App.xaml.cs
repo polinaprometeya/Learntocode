@@ -9,6 +9,7 @@ namespace wordsGUIWPF
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }
