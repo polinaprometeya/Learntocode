@@ -28,7 +28,6 @@ namespace fwflClassLib
             });
         }
 
-
         public event EventHandler<int> SearchIndex;
 
         protected virtual void OnUpdateSearchIndex(int e)

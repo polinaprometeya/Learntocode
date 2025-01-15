@@ -16,7 +16,6 @@ internal class Program
         //string filename = "dataAllPerfect.txt";
         string filename = "newBeta.txt";
 
-
         string[] fileContentsArray = readData(filename); //Read and load data here into an Array. You cannot chnage an array in c#.
 
         Console.Write("Original list word count:  ");
@@ -89,8 +88,9 @@ internal class Program
                 newList.Add(_dictionary[keys[i]]);
                 if (newList.Count == _wordCount)
                 {
-                    //TODO: Add to global list
+                    
                     _solutions.Add(string.Join(' ', newList));
+
                 }
                 else
                 {

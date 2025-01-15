@@ -59,11 +59,11 @@ namespace wordsGUIWPF
         }
 
 
-        private async void WordCountSlider_Select(object sender, RoutedEventArgs e)
-        {
-            int wordLength = 5;
+        //private async void WordCountSlider_Select(object sender, RoutedEventArgs e)
+        //{
+        //    int wordLength = 5;
 
-        }
+        //}
 
 
 
