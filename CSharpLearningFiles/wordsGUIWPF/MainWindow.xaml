@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wordsGUIWPF"
         mc:Ignorable="d"
-        Title="Dashboard" Height="730" Width="600" Background="#738276">
+        Title="Dashboard" Height="1025" Width="600" Background="#738276">
 
     <Window.Resources>
         <!-- Style for Sliders -->
@@ -52,7 +52,7 @@
         <TextBlock Text="Dashboard" FontSize="24" FontWeight="Bold" Foreground="#1E2521" HorizontalAlignment="Center" Margin="0,0,0,20" />
 
         <!-- Dashboard Sections -->
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0" Height="644">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0" Height="929">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -85,7 +85,7 @@
             <Border Grid.Row="1" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel>
                     <TextBlock Text="Word Length" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
-                    <Slider Name="Slider1" Minimum="5" Maximum="5" Margin="0,10" />
+                    <Slider Name="Slider1" Minimum="1" Maximum="10" Margin="0,10" />
                 </StackPanel>
             </Border>
 
@@ -93,7 +93,7 @@
             <Border Grid.Row="2" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
                 <StackPanel>
                     <TextBlock Text="Number of Words" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>
-                    <Slider Name="Slider2" Minimum="1" Maximum="5" Margin="0,10" />
+                    <Slider Name="Slider2" Minimum="1" Maximum="10" Margin="0,10" />
                 </StackPanel>
             </Border>
 
@@ -111,7 +111,13 @@
                     <Button Name="FilePickerButton" Content="Pick a File" Click="FilePickerButton_Click" />
                 </StackPanel>
             </Border>
-        </Grid>
 
+            <!-- Section 6: Data Grid -->
+            <!--<Border Grid.Row="5" Background="#EDEEED" CornerRadius="8" Padding="15" Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Output Data" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#1E2521"/>    
+                </StackPanel>-->
+            <!--</Border>-->
+        </Grid>
     </Grid>
 </Window>

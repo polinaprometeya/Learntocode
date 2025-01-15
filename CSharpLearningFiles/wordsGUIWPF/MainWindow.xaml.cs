@@ -34,24 +34,24 @@ namespace wordsGUIWPF
         public MainWindow()
         {
             InitializeComponent();
-            fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FiveWordFiveLetters\\newBeta.txt");
+            //fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FiveWordFiveLetters\\newBeta.txt");
             this.DataContext = this; //This is usually forgotten? Husk :D
         }
 
 
+        ////This is listener? Listen to an event? -- step 4 --
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
 
-        //This is listener? Listen to an event? -- step 4 --
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            int MaxPercent = 100; // set max value
-            _IsIndeterminate = true; //is it still going??
-            //SearchThread searchThread = new SearchThread("TestFile");
-            //searchThread.SearchIndex += SearchThread_SearchIndex; //Add event handler
-            //await searchThread.DoWork();
-        }
+        //    int MaxPercent = 100; // set max value
+        //    _IsIndeterminate = true; //is it still going??
+        //    //SearchThread searchThread = new SearchThread("TestFile");
+        //    //searchThread.SearchIndex += SearchThread_SearchIndex; //Add event handler
+        //    //await searchThread.DoWork();
+        //}
 
         // Handle event -- Method that is listening to event? -- step 5 --
+        
         private void SearchThread_SearchIndex(object? sender, int e)
         {
             if (_IsIndeterminate) _IsIndeterminate = false; //is it still going??
@@ -59,12 +59,20 @@ namespace wordsGUIWPF
         }
 
 
+        private async void WordCountSlider_Select(object sender, RoutedEventArgs e)
+        {
+            int wordLength = 5;
 
-        // Deal with this -- File Picker Button Click Handler
+        }
+
+
+
+        // This activates when the buttom clicked File Picker Button Click Handler
         private async void FilePickerButton_Click(object sender, RoutedEventArgs e)
         {
             // Open file dialog to select a file
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            int wordCount = 5;
 
 
             openFileDialog.Filter = "All Files (*.*)|*.*"; // Specify file filter
@@ -72,8 +80,8 @@ namespace wordsGUIWPF
             {
                 // Get the selected file path
                 string selectedFilePath = openFileDialog.FileName;
-                MessageBox.Show($"File Selected: {selectedFilePath}");
-               
+                MessageBox.Show($"File Selected");
+                
                 fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass(selectedFilePath);
                 gettingSomeWordSets.SearchIndex += SearchThread_SearchIndex;
                 await gettingSomeWordSets.DoWork();

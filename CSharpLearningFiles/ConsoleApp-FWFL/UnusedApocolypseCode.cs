@@ -4,12 +4,10 @@ public class UnusedApocolypseCode
 {
 	public UnusedApocolypseCode()
 	{
-        //graphCopyOfBejaminWork();
-        //fiveWordsCopyOfBenjaminWork();
     }
 
 
-    //---
+    //---------------------------------------------------------------------------------------------------------
 
     //public static int _wordLength = 5;
     //public static int _wordCount = 5;
@@ -133,6 +131,7 @@ public class UnusedApocolypseCode
     //    return modifiedWordList;
     //}
 
+    //--------------------------------------------------------------------------------------------------------
 
     ////  We are making a new collection of keys and values called dictionery.
     ////  Foreach proons the list of words by translating to binery value , and before adding a value to the list it checks if the binery value is unique.
@@ -153,8 +152,6 @@ public class UnusedApocolypseCode
 
     //    return dictionary;
     //}
-
-    //----
 
     //    using System;
     //using System.Windows;
@@ -341,7 +338,7 @@ public class UnusedApocolypseCode
     //    return fiveUniqueLetters;
     //}
 
-   // --------------------------------XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-------------------------------
+    // --------------------------------XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-------------------------------
     ////Products are equal if their names and product numbers are equal.
     //public static bool areTwoStringThesame(string firstString, string secondString)
     //{

@@ -4,13 +4,14 @@ namespace fwflClassLib
 {
     public class FiveWordFiveLetterClass
     {
-
+        private string _filename;
         private int _wordLength;
         private int _wordCount;
+
         private Dictionary<int, string> _dictionary;
         public List<string> _solutions;
 
-        private string _filename;
+        
 
         public FiveWordFiveLetterClass(string filename, int wordLength = 5, int wordCount = 5)
         {
@@ -23,9 +24,10 @@ namespace fwflClassLib
         {
             return Task.Run(() =>
             {
-                Run();
+                Program(); //the previous Run() referes to threads 
             });
         }
+
 
         public event EventHandler<int> SearchIndex;
 
@@ -38,65 +40,34 @@ namespace fwflClassLib
             }
         }
 
-        //public void IsIndeterminate()
-        // {
-
-        // }
-
-
-        public void Run()
+        public void Program()
         {
             Console.WriteLine("Hello, World!");
-            Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
+            //Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
 
 
             string[] fileContentsArray = readData(_filename); //Read and load data here into an Array. You cannot chnage an array in c#.
 
-            Console.Write("Original list word count:  ");
-            Console.WriteLine(fileContentsArray.Count()); // check word count in original file
-            Console.Write("\n");
+            //Console.Write("Original list word count:  ", fileContentsArray.Count()); // check word count in original file
+
 
             List<string> modifiedWords = modifiedWordList(fileContentsArray); //checking loaded data word for word - so they good.
-            _solutions = new List<string>(); //making new string 
             _dictionary = uniqueWordDictionary(modifiedWords); // prooning the modifiedWordList word with BIT stuff to remove doublicates , anagrams etc.
+            _solutions = new List<string>(); //making new string 
+            recurciveFiveWordSet(_dictionary.Keys.ToArray(), 0, 0, new List<string>()); // make 5 word sets as a string and pass them to solutions.
 
-
-            recurciveFiveWordSet(_dictionary.Keys.ToArray(), 0, 0, new List<string>());
-
-            // Print a list of strings. Each string represents a set of 5 words with five unique letters, each set have alphabet represented once. 
-            foreach (string word in _solutions)
-            {
-                Console.WriteLine(word); // print each word set as a  string
-            }
-            Console.WriteLine($"\nsolutions: {_solutions.Count}"); //count how many word sets there are
-
-            Console.Write("\n");
-            Console.Write("The count of unique words is: ");
-            Console.WriteLine(_dictionary.Count()); //check word count in prooned and cleaned data 
-
-            sw.Stop(); //stop the timer
-            Console.WriteLine($"Time used: {sw.Elapsed.TotalSeconds:F2} sekunder used"); //print the time used
-            Console.Write("\n");
 
         }
-
-
-        // loading the "perfect" data for first run, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
+        //loading the  data from the passed file, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
         public string[] readData(string filePath)
         {
-
-
             if (File.Exists(filePath))
             {
                 Console.WriteLine("File found");
                 try
                 {
-                    //string[] fileContentsArray = File.ReadAllLines(dataAllPerfect);
-                    //modifiedWordList(fileContentsArray);
-
                     string[] fileContentsArray = File.ReadAllLines(filePath);
                     return fileContentsArray;
-
                 }
 
                 catch (Exception ex)
@@ -111,7 +82,7 @@ namespace fwflClassLib
             return null;
         }
 
-        // this checks 
+        // this makes a set of 5 words and adds it to a list called solutions as one string. 
         private void recurciveFiveWordSet(int[] keys, int index, int mask, List<string> words)
         {
             for (int i = index; i < keys.Length; i++)
@@ -122,8 +93,8 @@ namespace fwflClassLib
                     newList.Add(_dictionary[keys[i]]);
                     if (newList.Count == _wordCount)
                     {
-                        //TODO: Add to global list
-                        _solutions.Add(string.Join(' ', newList));
+                        
+                        _solutions.Add(string.Join(' ', newList)); // makes the 5 words into one string... no more list of lists
                     }
                     else
                     {
@@ -182,8 +153,6 @@ namespace fwflClassLib
 
             return dictionary;
         }
-
-
 
     }
 }
