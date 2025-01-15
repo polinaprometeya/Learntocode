@@ -242,6 +242,7 @@ public class UnusedApocolypseCode
 
     //this is to make sets of 5 words combination. 
 
+    //-----------------------XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX------------------------------
     //static List<List<string>> theFiveWordSet(List<string> listResult)
     //{
     //    List<List<string>> fullwordlist = new List<List<string>>();
@@ -340,7 +341,7 @@ public class UnusedApocolypseCode
     //    return fiveUniqueLetters;
     //}
 
-
+   // --------------------------------XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-------------------------------
     ////Products are equal if their names and product numbers are equal.
     //public static bool areTwoStringThesame(string firstString, string secondString)
     //{
