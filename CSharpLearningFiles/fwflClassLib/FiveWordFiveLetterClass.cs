@@ -7,6 +7,7 @@ namespace fwflClassLib
         private string _filename;
         private int _wordLength;
         private int _wordCount;
+        public double _runtime;
 
         private Dictionary<int, string> _dictionary;
         public List<string> _solutions;
@@ -41,8 +42,8 @@ namespace fwflClassLib
 
         public void Program()
         {
-            Console.WriteLine("Hello, World!");
-            //Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
+
+            Stopwatch sw = Stopwatch.StartNew(); // make a new stopwatch to take count.
 
 
             string[] fileContentsArray = readData(_filename); //Read and load data here into an Array. You cannot chnage an array in c#.
@@ -55,6 +56,8 @@ namespace fwflClassLib
             _solutions = new List<string>(); //making new string 
             recurciveFiveWordSet(_dictionary.Keys.ToArray(), 0, 0, new List<string>()); // make 5 word sets as a string and pass them to solutions.
 
+            sw.Stop();
+            _runtime = sw.Elapsed.TotalMilliseconds;
 
         }
         //loading the  data from the passed file, then just the data file we are interested in this passes the values down to function that checks if the words are okay.
@@ -92,7 +95,6 @@ namespace fwflClassLib
                     newList.Add(_dictionary[keys[i]]);
                     if (newList.Count == _wordCount)
                     {
-                        
                         _solutions.Add(string.Join(' ', newList)); // makes the 5 words into one string... no more list of lists
                     }
                     else
@@ -113,7 +115,9 @@ namespace fwflClassLib
         //basic test if word is there and it is 5 characters long.
         public bool isWordValid(string word)
         {
-            if (word.Length == _wordLength) return true; return false;
+            return word.Length == _wordLength ? true : false;
+
+       
         }
 
         //This is to see if the given word does not repeat characters.

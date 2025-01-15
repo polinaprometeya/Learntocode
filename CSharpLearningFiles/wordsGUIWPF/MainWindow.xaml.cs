@@ -85,7 +85,8 @@ namespace wordsGUIWPF
                 fwflClassLib.FiveWordFiveLetterClass gettingSomeWordSets = new FiveWordFiveLetterClass(selectedFilePath);
                 gettingSomeWordSets.SearchIndex += SearchThread_SearchIndex;
                 await gettingSomeWordSets.DoWork();
-                MessageBox.Show($"{gettingSomeWordSets._solutions.Count} Solutions found");
+                double runtimeSeconds = ((gettingSomeWordSets._runtime) / 1000);
+                MessageBox.Show($"{gettingSomeWordSets._solutions.Count} solutions found with: {runtimeSeconds} sekonds runtime");
             }
         }
 
