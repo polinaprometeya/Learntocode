@@ -1,7 +1,7 @@
 ﻿//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
-namespace Plukliste;
+namespace FKTV;
 
-class PluklisteProgram { 
+class PluklisteProgram {
 
     static void Main()
     {
@@ -14,13 +14,8 @@ class PluklisteProgram {
         var standardColor = Console.ForegroundColor;
         Directory.CreateDirectory("import");
 
-        if (!Directory.Exists("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\"))
-        {
-            Console.WriteLine("Directory \"export\" not found");
-            Console.ReadLine();
-            return;
-        }
-        files = Directory.EnumerateFiles("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\").ToList();
+        string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
+        files = PluklisteProgram.loadData(filesPath);
 
         //ACT
         while (readKey != 'Q')
@@ -122,4 +117,35 @@ class PluklisteProgram {
 
         }
     }
+        public static List<string> loadData(string filesPath)
+    {
+        
+        //string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+        //Console.WriteLine("projectDirectory:", projectDirectory);
+
+        if (Directory.Exists(filesPath))
+        {
+            Console.WriteLine("File found");
+            try
+            {
+                List<string> loadData = Directory.EnumerateFiles(filesPath).ToList();
+                return loadData;
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error or something: " + ex.Message);
+                Console.ReadLine();
+            }
+        }
+        else
+        {
+            Console.WriteLine("Error, no file exist");
+            Console.ReadLine();
+        }
+        return null;
+    }
+
+
 }
+

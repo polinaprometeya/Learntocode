@@ -1,4 +1,4 @@
-﻿namespace Plukliste;
+﻿namespace FKTV;
 public class Pluklist
 {
     public string? Name;
