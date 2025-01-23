@@ -17,7 +17,8 @@ public class Item
 }
 public enum ItemType
 {
-    Fysisk, Print
+    Fysisk, 
+    Print
 }
 
 

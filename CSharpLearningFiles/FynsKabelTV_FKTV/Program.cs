@@ -2,7 +2,10 @@
 namespace FKTV;
 
 class PluklisteProgram {
+    //applying "Don't repeat yourself" (DRY), also known as "duplication is evil".
 
+    string _userInput;
+   
     static void Main()
     {
         Console.WriteLine("Welcome to FynsKabelTV_FKTV");
@@ -14,8 +17,10 @@ class PluklisteProgram {
         var standardColor = Console.ForegroundColor;
         Directory.CreateDirectory("import");
 
+        ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
+
 
         //ACT
         while (readKey != 'Q')
@@ -29,6 +34,7 @@ class PluklisteProgram {
             {
                 if (index == -1) index = 0;
 
+                //status
                 Console.WriteLine($"Plukliste {index + 1} af {files.Count}");
                 Console.WriteLine($"\nfile: {files[index]}");
 
@@ -52,14 +58,19 @@ class PluklisteProgram {
                     }
                 }
                 file.Close();
+      
             }
+
+
 
             //Print options
             Console.WriteLine("\n\nOptions:");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Q");
-            Console.ForegroundColor = standardColor;
-            Console.WriteLine("uit");
+            consoleLog.LogLineShift();
+
+            consoleLog.LogSameLineGreen("Q");
+            consoleLog.LogNewLineDefault("uit");
+        
+
             if (index >= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -117,12 +128,8 @@ class PluklisteProgram {
 
         }
     }
-        public static List<string> loadData(string filesPath)
+    public static List<string> loadData(string filesPath)
     {
-        
-        //string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-        //Console.WriteLine("projectDirectory:", projectDirectory);
-
         if (Directory.Exists(filesPath))
         {
             Console.WriteLine("File found");
@@ -146,6 +153,15 @@ class PluklisteProgram {
         return null;
     }
 
+    public static void UserChoiceIndicatorUI(string inputString) {
+        ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
+        consoleLog.LogSameLineGreen(inputString);
+    }
+    public static string readUserInput()
+    {
+        string _userinput = Console.ReadLine();
+        return _userinput;
+    }
 
 }
 
