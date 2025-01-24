@@ -1,4 +1,6 @@
 ﻿//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
+using System.Runtime.Serialization;
+
 namespace FKTV;
 
 //orginize things before moving to seperate functions.
@@ -25,6 +27,7 @@ class PluklisteProgram {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
+        DataFormatting formatterXML = new DataFormatting();
 
 
         //ACT
@@ -38,35 +41,37 @@ class PluklisteProgram {
             {
                 if (index == -1) index = 0;
 
-                //status
-                consoleLog.LogNewLineRed($"Plukliste {index + 1} af {files.Count}");
-                consoleLog.LogNewLineRed($"\nfile: {files[index]}");
-
-                //read file
-                FileStream file = File.OpenRead(files[index]);
-                System.Xml.Serialization.XmlSerializer xmlSerializer =
-                    new System.Xml.Serialization.XmlSerializer(typeof(Pluklist));
-                var plukliste = (Pluklist?)xmlSerializer.Deserialize(file);
-
-                //print plukliste
-                if (plukliste != null && plukliste.Lines != null)
+                try
                 {
-                    Console.WriteLine("\n{0, -13}{1}", "Name:", plukliste.Name);
-                    Console.WriteLine("{0, -13}{1}", "Courier:", plukliste.Forsendelse);
-                    Console.WriteLine("{0, -13}{1}", "Adress:", plukliste.Adresse);
-                    Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3}", "Antal", "Type", "Produktnr.", "Navn");
-                    foreach (var item in plukliste.Lines)
+                    var plukliste = formatterXML.DataFormattingXML(files, index); // Pass the list and the index
+                    if (plukliste != null && plukliste.Lines != null)
                     {
-                        Console.WriteLine("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
+                        // Do something with plukliste
+                        Console.WriteLine("Pluklist successfully deserialized!");
+
+                        Console.WriteLine("\n{0, -13}{1}", "Name:", plukliste.Name);
+                        Console.WriteLine("{0, -13}{1}", "Courier:", plukliste.Forsendelse);
+                        Console.WriteLine("{0, -13}{1}", "Adress:", plukliste.Adresse);
+                        Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3}", "Antal", "Type", "Produktnr.", "Navn");
+                        foreach (var item in plukliste.Lines)
+                        {
+                            Console.WriteLine("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
+                        }
                     }
                 }
-                file.Close();
-      
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
             }
 
             //Print options
-            Console.WriteLine("\n\nOptions:");
+            //status
+            consoleLog.LogNewLineRed($"\nPlukliste {index + 1} af {files.Count}");
+            consoleLog.LogNewLineRed($"file: {files[index]}");
             consoleLog.LogLineShift();
+
+            Console.WriteLine("\n\nOptions:");
 
             consoleLog.LogSameLineGreen("Q");
             consoleLog.LogNewLineDefault("uit");
@@ -121,6 +126,7 @@ class PluklisteProgram {
 
         }
     }
+
     public static List<string> loadData(string filesPath)
     {
         if (Directory.Exists(filesPath))
