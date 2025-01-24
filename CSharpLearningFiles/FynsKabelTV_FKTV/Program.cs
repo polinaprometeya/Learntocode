@@ -4,17 +4,16 @@ namespace FKTV;
 class PluklisteProgram {
     //applying "Don't repeat yourself" (DRY), also known as "duplication is evil".
 
-    string _userInput;
-   
+    public static char _readKey = ' ';
+
     static void Main()
     {
         Console.WriteLine("Welcome to FynsKabelTV_FKTV");
 
         //Arrange
-        char readKey = ' ';
+       
         List<string> files;
         var index = -1;
-        var standardColor = Console.ForegroundColor;
         Directory.CreateDirectory("import");
 
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
@@ -23,20 +22,19 @@ class PluklisteProgram {
 
 
         //ACT
-        while (readKey != 'Q')
+        while (_readKey != 'Q')
         {
             if (files.Count == 0)
             {
-                Console.WriteLine("No files found.");
-
+                consoleLog.LogNewLineRed("No files found.");
             }
             else
             {
                 if (index == -1) index = 0;
 
                 //status
-                Console.WriteLine($"Plukliste {index + 1} af {files.Count}");
-                Console.WriteLine($"\nfile: {files[index]}");
+                consoleLog.LogNewLineRed($"Plukliste {index + 1} af {files.Count}");
+                consoleLog.LogNewLineRed($"\nfile: {files[index]}");
 
                 //read file
                 FileStream file = File.OpenRead(files[index]);
@@ -61,8 +59,6 @@ class PluklisteProgram {
       
             }
 
-
-
             //Print options
             Console.WriteLine("\n\nOptions:");
             consoleLog.LogLineShift();
@@ -73,41 +69,32 @@ class PluklisteProgram {
 
             if (index >= 0)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("A");
-                Console.ForegroundColor = standardColor;
+                consoleLog.LogSameLineGreen("A");
                 Console.WriteLine("fslut plukseddel");
             }
             if (index > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("F");
-                Console.ForegroundColor = standardColor;
+                consoleLog.LogSameLineGreen("F");
                 Console.WriteLine("orrige plukseddel");
             }
             if (index < files.Count - 1)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("N");
-                Console.ForegroundColor = standardColor;
+                consoleLog.LogSameLineGreen("N");
                 Console.WriteLine("æste plukseddel");
             }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("G");
-            Console.ForegroundColor = standardColor;
+
+            consoleLog.LogSameLineGreen("G");
             Console.WriteLine("enindlæs pluksedler");
 
-            readKey = Console.ReadKey().KeyChar;
-            if (readKey >= 'a') readKey -= (char)('a' - 'A'); //HACK: To upper
+            _readKey = readUserInput();
             Console.Clear();
 
-            Console.ForegroundColor = ConsoleColor.Red; //status in red
-            switch (readKey)
+            switch (_readKey)
             {
                 case 'G':
                     files = Directory.EnumerateFiles("export").ToList();
                     index = -1;
-                    Console.WriteLine("Pluklister genindlæst");
+                    consoleLog.LogNewLineRed("Pluklister genindlæst");
                     break;
                 case 'F':
                     if (index > 0) index--;
@@ -119,12 +106,12 @@ class PluklisteProgram {
                     //Move files to import directory
                     var filewithoutPath = files[index].Substring(files[index].LastIndexOf('\\'));
                     File.Move(files[index], string.Format(@"import\\{0}", filewithoutPath));
-                    Console.WriteLine($"Plukseddel {files[index]} afsluttet.");
+
+                    consoleLog.LogNewLineRed($"Plukseddel {files[index]} afsluttet.");
                     files.Remove(files[index]);
                     if (index == files.Count) index--;
                     break;
             }
-            Console.ForegroundColor = standardColor; //reset color
 
         }
     }
@@ -152,15 +139,16 @@ class PluklisteProgram {
         }
         return null;
     }
-
     public static void UserChoiceIndicatorUI(string inputString) {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         consoleLog.LogSameLineGreen(inputString);
     }
-    public static string readUserInput()
+    public static char readUserInput()
     {
-        string _userinput = Console.ReadLine();
-        return _userinput;
+        _readKey = Console.ReadKey().KeyChar;
+        if (_readKey >= 'a') _readKey -= (char)('a' - 'A'); //HACK: To upper
+        
+        return _readKey;
     }
 
 }

@@ -25,6 +25,14 @@
 
         }
 
+        public void LogNewLineRed(string inputString)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(inputString);
+            Console.ResetColor();
+
+        }
+
         public void LogNewLineGreen(string inputString)
         {
             Console.ForegroundColor = ConsoleColor.Green;
