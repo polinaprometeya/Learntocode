@@ -1,11 +1,17 @@
 ﻿//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
 namespace FKTV;
 
+//orginize things before moving to seperate functions.
+//move xml reader into seperate class
+//seperate the index stuff into seperate class
+//add adress under name and post type
+//make a folder called print
+//load template -- chnage to the current case and save it as a copy in folder print.
 class PluklisteProgram {
     //applying "Don't repeat yourself" (DRY), also known as "duplication is evil".
+    //This should be only a utility class. So... the logic has to be slit up.
 
     public static char _readKey = ' ';
-
     static void Main()
     {
         Console.WriteLine("Welcome to FynsKabelTV_FKTV");
@@ -46,9 +52,8 @@ class PluklisteProgram {
                 if (plukliste != null && plukliste.Lines != null)
                 {
                     Console.WriteLine("\n{0, -13}{1}", "Name:", plukliste.Name);
-                    Console.WriteLine("{0, -13}{1}", "Forsendelse:", plukliste.Forsendelse);
-                    //TODO: Add adresse to screen print
-
+                    Console.WriteLine("{0, -13}{1}", "Courier:", plukliste.Forsendelse);
+                    Console.WriteLine("{0, -13}{1}", "Adress:", plukliste.Adresse);
                     Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3}", "Antal", "Type", "Produktnr.", "Navn");
                     foreach (var item in plukliste.Lines)
                     {
@@ -89,6 +94,7 @@ class PluklisteProgram {
             _readKey = readUserInput();
             Console.Clear();
 
+            //UI logic bit - index chnage when writing the choice. 
             switch (_readKey)
             {
                 case 'G':
