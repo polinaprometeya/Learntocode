@@ -14,7 +14,7 @@ public class PrintInstructions
             if (plukliste != null && plukliste.Lines != null)
             {
                 // Do something with plukliste
-                consoleLog.LogNewLineDefault("Pluklist successfully deserialized!");
+                consoleLog.LogNewLineDefault("Currently Chosen Pluklist");
                 consoleLog.LogLineShift();
                 consoleLog.LogNewLineDefault("\n{0, -13}{1}", "Name:", plukliste.Name);
                 consoleLog.LogNewLineDefault("{0, -13}{1}", "Courier:", plukliste.Forsendelse);

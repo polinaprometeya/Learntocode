@@ -15,19 +15,17 @@ class PluklisteProgram
     public static char _readKey = ' ';
     static void Main()
     {
-        Console.WriteLine("Welcome to FynsKabelTV_FKTV");
+        ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
+        StatusOnDashboard statusOnTopOfPage = new StatusOnDashboard();
 
         //Arrange
-
         List<string> files;
         var index = -1;
         Directory.CreateDirectory("import");
-
-        ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
 
-
+       
 
         //ACT
         while (_readKey != 'Q')
@@ -39,14 +37,15 @@ class PluklisteProgram
             else
             {
                 if (index == -1) index = 0;
+                statusOnTopOfPage.StatusOnDashboardPermenent(files, index);
+                statusOnTopOfPage.StatusOnDashboardConsidional(files, index);
                 PrintInstructions printPlukliste = new PrintInstructions(files, index); 
             }
 
             //Print options
             //status
-            consoleLog.LogNewLineRed($"\nPlukliste {index + 1} af {files.Count}");
-            consoleLog.LogNewLineRed($"file: {files[index]}");
-            consoleLog.LogLineShift();
+
+  
 
             Console.WriteLine("\n\nOptions:");
 
@@ -82,7 +81,6 @@ class PluklisteProgram
                 case 'G':
                     files = Directory.EnumerateFiles("export").ToList();
                     index = -1;
-                    consoleLog.LogNewLineRed("Pluklister genindlæst");
                     break;
                 case 'F':
                     if (index > 0) index--;
@@ -94,8 +92,6 @@ class PluklisteProgram
                     //Move files to import directory
                     var filewithoutPath = files[index].Substring(files[index].LastIndexOf('\\'));
                     File.Move(files[index], string.Format(@"import\\{0}", filewithoutPath));
-
-                    consoleLog.LogNewLineRed($"Plukseddel {files[index]} afsluttet.");
                     files.Remove(files[index]);
                     if (index == files.Count) index--;
                     break;
