@@ -1,7 +1,4 @@
-﻿using System;
-using FKTV;
-
-public class ObsoleCode
+﻿public class ObsoleCode
 {
     //public ObsoleCode()
     //{

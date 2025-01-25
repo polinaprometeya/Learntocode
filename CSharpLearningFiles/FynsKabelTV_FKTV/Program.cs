@@ -1,6 +1,4 @@
 ﻿//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
-using System.Runtime.Serialization;
-
 namespace FKTV;
 
 //orginize things before moving to seperate functions.
@@ -9,7 +7,8 @@ namespace FKTV;
 //add adress under name and post type
 //make a folder called print
 //load template -- chnage to the current case and save it as a copy in folder print.
-class PluklisteProgram {
+class PluklisteProgram
+{
     //applying "Don't repeat yourself" (DRY), also known as "duplication is evil".
     //This should be only a utility class. So... the logic has to be slit up.
 
@@ -19,7 +18,7 @@ class PluklisteProgram {
         Console.WriteLine("Welcome to FynsKabelTV_FKTV");
 
         //Arrange
-       
+
         List<string> files;
         var index = -1;
         Directory.CreateDirectory("import");
@@ -27,7 +26,7 @@ class PluklisteProgram {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
-        DataFormatting formatterXML = new DataFormatting();
+
 
 
         //ACT
@@ -40,29 +39,7 @@ class PluklisteProgram {
             else
             {
                 if (index == -1) index = 0;
-
-                try
-                {
-                    var plukliste = formatterXML.DataFormattingXML(files, index); // Pass the list and the index
-                    if (plukliste != null && plukliste.Lines != null)
-                    {
-                        // Do something with plukliste
-                        Console.WriteLine("Pluklist successfully deserialized!");
-
-                        Console.WriteLine("\n{0, -13}{1}", "Name:", plukliste.Name);
-                        Console.WriteLine("{0, -13}{1}", "Courier:", plukliste.Forsendelse);
-                        Console.WriteLine("{0, -13}{1}", "Adress:", plukliste.Adresse);
-                        Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3}", "Antal", "Type", "Produktnr.", "Navn");
-                        foreach (var item in plukliste.Lines)
-                        {
-                            Console.WriteLine("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                }
+                PrintInstructions printPlukliste = new PrintInstructions(files, index); 
             }
 
             //Print options
@@ -75,7 +52,7 @@ class PluklisteProgram {
 
             consoleLog.LogSameLineGreen("Q");
             consoleLog.LogNewLineDefault("uit");
-        
+
 
             if (index >= 0)
             {
@@ -151,7 +128,8 @@ class PluklisteProgram {
         }
         return null;
     }
-    public static void UserChoiceIndicatorUI(string inputString) {
+    public static void UserChoiceIndicatorUI(string inputString)
+    {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         consoleLog.LogSameLineGreen(inputString);
     }
@@ -159,7 +137,7 @@ class PluklisteProgram {
     {
         _readKey = Console.ReadKey().KeyChar;
         if (_readKey >= 'a') _readKey -= (char)('a' - 'A'); //HACK: To upper
-        
+
         return _readKey;
     }
 

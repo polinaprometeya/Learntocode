@@ -1,24 +1,28 @@
-﻿using System;
-using FKTV;
-using System.Reflection;
-
-public class DataFormatting
+﻿namespace FKTV
 {
-    public Pluklist? DataFormattingXML(List<string> files, int index)
+    public class DataFormatting
     {
-        // Ensure the index is within bounds of the list
-        if (index < 0 || index >= files.Count)
+        public Pluklist? DataFormattingXML(List<string> files, int index)
         {
-            throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range.");
+            // Ensure the index is within bounds of the list
+            if (index < 0 || index >= files.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range.");
+            }
+
+            using (FileStream file = File.OpenRead(files[index]))
+            {
+                System.Xml.Serialization.XmlSerializer xmlSerializer =
+                    new System.Xml.Serialization.XmlSerializer(typeof(Pluklist));
+                var plukliste = (Pluklist?)xmlSerializer.Deserialize(file);
+                file.Close();
+                return plukliste;
+            }
+
         }
 
-        using (FileStream file = File.OpenRead(files[index]))
-        {
-            System.Xml.Serialization.XmlSerializer xmlSerializer =
-                new System.Xml.Serialization.XmlSerializer(typeof(Pluklist));
-            var plukliste = (Pluklist?)xmlSerializer.Deserialize(file);
-            file.Close();
-            return plukliste;
-        }
+        public void DataFormattingCSV() { }
+
+        public void DataFormattingHTML() { }
     }
 }

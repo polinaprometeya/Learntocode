@@ -9,7 +9,6 @@
             Console.ResetColor();
         }
 
-
         public void LogNewLineYellow(string inputString)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -59,12 +58,10 @@
             Console.Write(inputString);
         }
 
-
         public void LogLineShift()
         {
             Console.WriteLine();
         }
-
 
     }
 }
