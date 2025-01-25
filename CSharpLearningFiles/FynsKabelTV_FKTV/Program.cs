@@ -25,8 +25,6 @@ class PluklisteProgram
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
 
-       
-
         //ACT
         while (_readKey != 'Q')
         {
@@ -43,15 +41,10 @@ class PluklisteProgram
             }
 
             //Print options
-            //status
-
-  
 
             Console.WriteLine("\n\nOptions:");
-
             consoleLog.LogSameLineGreen("Q");
             consoleLog.LogNewLineDefault("uit");
-
 
             if (index >= 0)
             {
@@ -96,7 +89,6 @@ class PluklisteProgram
                     if (index == files.Count) index--;
                     break;
             }
-
         }
     }
 
@@ -107,6 +99,8 @@ class PluklisteProgram
             Console.WriteLine("File found");
             try
             {
+                ////string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                ////Console.WriteLine("projectDirectory:", projectDirectory);
                 List<string> loadData = Directory.EnumerateFiles(filesPath).ToList();
                 return loadData;
             }
