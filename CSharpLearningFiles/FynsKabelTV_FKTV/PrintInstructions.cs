@@ -5,10 +5,10 @@ public class PrintInstructions
     public PrintInstructions(List<string> files, int index)
     {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
-        DataFormatting formatterXML = new DataFormatting();
+        DataFormatting formattingXML = new DataFormatting();
         try
         {
-            var plukliste = formatterXML.DataFormattingXML(files, index); // Pass the list and the index
+            var plukliste = formattingXML.DataFormattingXML(files, index); // Pass the list and the index
             if (plukliste != null && plukliste.Lines != null)
             {
                 // Do something with plukliste

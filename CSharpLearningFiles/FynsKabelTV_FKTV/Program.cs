@@ -1,22 +1,20 @@
-﻿//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
+﻿
+using Aspose.Html;
+using Aspose.Html.Saving.ResourceHandlers;
+
+//Eksempel på funktionel kodning hvor der kun bliver brugt et model lag
 namespace FKTV;
 
-//orginize things before moving to seperate functions.
-//move xml reader into seperate class
-//seperate the index stuff into seperate class
-//add adress under name and post type
-//make a folder called print
-//load template -- chnage to the current case and save it as a copy in folder print.
 class PluklisteProgram
 {
     //applying "Don't repeat yourself" (DRY), also known as "duplication is evil".
-    //This should be only a utility class. So... the logic has to be slit up.
+    //This should be only a utility class. So... 
 
     public static char _readKey = ' ';
     static void Main()
     {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
-        StatusOnDashboard statusOnTopOfPage = new StatusOnDashboard();
+        StatusOnDashboard statusOnTopOfPage = new StatusOnDashboard(); 
 
         //Arrange
         List<string> files;
@@ -24,6 +22,11 @@ class PluklisteProgram
         Directory.CreateDirectory("import");
         string filesPath = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\export\\";
         files = PluklisteProgram.loadData(filesPath);
+
+        string inputPathOpgrade = @"C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\templates\\PRINT - OPGRADE.html";
+        //string inputPathOpsigelse = Path.Combine("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\templates\\PRINT - OPSIGELSE.html");
+        //string inputPathWelcome = Path.Combine("C:\\Users\\infi-yoga\\source\\repos\\CSharpLearningFiles\\FynsKabelTV_FKTV\\templates\\PRINT-WELCOME.html");
+
 
         //ACT
         while (_readKey != 'Q')
@@ -37,7 +40,9 @@ class PluklisteProgram
                 if (index == -1) index = 0;
                 statusOnTopOfPage.StatusOnDashboardPermenent(files, index);
                 statusOnTopOfPage.StatusOnDashboardConsidional(files, index, _readKey);
-                PrintInstructions printPlukliste = new PrintInstructions(files, index); 
+                PrintInstructions printPlukliste = new PrintInstructions(files, index);
+               
+                //outputPrintFiles(inputPathOpgrade, printPlukliste.plukliste.Name, printPlukliste.plukliste.Adress);
             }
 
             //Print options
@@ -91,6 +96,7 @@ class PluklisteProgram
             }
         }
     }
+    
     public static List<string> loadData(string filesPath)
     {
         if (Directory.Exists(filesPath))
@@ -118,34 +124,24 @@ class PluklisteProgram
         return null;
     }
 
-    public static void outputPrintFiles()
+    public static void outputPrintFiles(string inputPath, string pluklisteName, string pluklisteAdress)
     {
-        //// Prepare a path to a source HTML file
+        DataFormatting formattingHTML = new DataFormatting();
+        // Prepare a full path to an output directory 
+        string customOutDir = Path.Combine(Directory.GetCurrentDirectory(), "../print/");
 
-        //string inputPath = Path.Combine(DataDir, "with-resources.html");
-
-        //// Prepare a full path to an output directory 
-
-        //string customOutDir = Path.Combine(Directory.GetCurrentDirectory(), "./../../../../tests-out/saving/");
-
-
-        //// Load the HTML document from a file
-
-        //using (var doc = new HTMLDocument(inputPath))
-
-        //{
-
-        //    // Save HTML with resources
-
-        //    doc.Save(new FileSystemResourceHandler(customOutDir));
-
-        //}
+        HTMLDocument? outputHTMLDocument = formattingHTML.DataFormattingHTML(inputPath, pluklisteName, pluklisteAdress);
+        // Save HTML with resources
+        
+        outputHTMLDocument.Save(new FileSystemResourceHandler(customOutDir));
     }
+    
     public static void UserChoiceIndicatorUI(string inputString)
     {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         consoleLog.LogSameLineGreen(inputString);
     }
+    
     public static char readUserInput()
     {
         _readKey = Console.ReadKey().KeyChar;
