@@ -36,7 +36,7 @@ class PluklisteProgram
             {
                 if (index == -1) index = 0;
                 statusOnTopOfPage.StatusOnDashboardPermenent(files, index);
-                statusOnTopOfPage.StatusOnDashboardConsidional(files, index);
+                statusOnTopOfPage.StatusOnDashboardConsidional(files, index, _readKey);
                 PrintInstructions printPlukliste = new PrintInstructions(files, index); 
             }
 
@@ -91,7 +91,6 @@ class PluklisteProgram
             }
         }
     }
-
     public static List<string> loadData(string filesPath)
     {
         if (Directory.Exists(filesPath))
@@ -117,6 +116,30 @@ class PluklisteProgram
             Console.ReadLine();
         }
         return null;
+    }
+
+    public static void outputPrintFiles()
+    {
+        //// Prepare a path to a source HTML file
+
+        //string inputPath = Path.Combine(DataDir, "with-resources.html");
+
+        //// Prepare a full path to an output directory 
+
+        //string customOutDir = Path.Combine(Directory.GetCurrentDirectory(), "./../../../../tests-out/saving/");
+
+
+        //// Load the HTML document from a file
+
+        //using (var doc = new HTMLDocument(inputPath))
+
+        //{
+
+        //    // Save HTML with resources
+
+        //    doc.Save(new FileSystemResourceHandler(customOutDir));
+
+        //}
     }
     public static void UserChoiceIndicatorUI(string inputString)
     {
