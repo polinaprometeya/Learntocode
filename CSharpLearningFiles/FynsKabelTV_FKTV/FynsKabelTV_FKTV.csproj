@@ -34,4 +34,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="print\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.HTML" Version="24.12.0" />
+  </ItemGroup>
+
 </Project>

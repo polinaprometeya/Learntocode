@@ -11,10 +11,11 @@ class PluklisteProgram
     //This should be only a utility class. So... 
 
     public static char _readKey = ' ';
+
     static void Main()
     {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
-        StatusOnDashboard statusOnTopOfPage = new StatusOnDashboard(); 
+        StatusOnDashboard statusOnTopOfPage = new StatusOnDashboard();
 
         //Arrange
         List<string> files;
@@ -41,7 +42,7 @@ class PluklisteProgram
                 statusOnTopOfPage.StatusOnDashboardPermenent(files, index);
                 statusOnTopOfPage.StatusOnDashboardConsidional(files, index, _readKey);
                 PrintInstructions printPlukliste = new PrintInstructions(files, index);
-               
+
                 //outputPrintFiles(inputPathOpgrade, printPlukliste.plukliste.Name, printPlukliste.plukliste.Adress);
             }
 
@@ -96,7 +97,7 @@ class PluklisteProgram
             }
         }
     }
-    
+
     public static List<string> loadData(string filesPath)
     {
         if (Directory.Exists(filesPath))
@@ -132,16 +133,16 @@ class PluklisteProgram
 
         HTMLDocument? outputHTMLDocument = formattingHTML.DataFormattingHTML(inputPath, pluklisteName, pluklisteAdress);
         // Save HTML with resources
-        
+
         outputHTMLDocument.Save(new FileSystemResourceHandler(customOutDir));
     }
-    
+
     public static void UserChoiceIndicatorUI(string inputString)
     {
         ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
         consoleLog.LogSameLineGreen(inputString);
     }
-    
+
     public static char readUserInput()
     {
         _readKey = Console.ReadKey().KeyChar;

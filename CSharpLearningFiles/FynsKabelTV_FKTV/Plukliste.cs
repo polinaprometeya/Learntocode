@@ -15,6 +15,7 @@ public class Item
     public ItemType Type;
     public int Amount;
 }
+
 public enum ItemType
 {
     Fysisk,

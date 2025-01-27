@@ -1,19 +1,18 @@
-﻿using System;
-using System.Reflection;
-namespace FKTV;
+﻿namespace FKTV;
 
 public class StatusOnDashboard
 {
     ConsoleLoggerClass consoleLog = new ConsoleLoggerClass();
-    public void StatusOnDashboardPermenent(List<string>files, int index)
-	{
+    
+    public void StatusOnDashboardPermenent(List<string> files, int index)
+    {
         //permenent info
         consoleLog.LogNewLineYellow("Welcome to FynsKabelTV_FKTV");
         consoleLog.LogNewLineRed($"\nPlukliste {index + 1} af {files.Count}");
         consoleLog.LogNewLineRed($"file: {files[index]}");
     }
 
-    public void StatusOnDashboardConsidional(List<string> files, int index)
+    public void StatusOnDashboardConsidional(List<string> files, int index, char _readKey)
     {
         //consitional info 
         switch (_readKey)

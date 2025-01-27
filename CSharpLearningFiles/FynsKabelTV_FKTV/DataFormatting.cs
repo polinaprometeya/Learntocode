@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using Aspose.Html;
+﻿using Aspose.Html;
 
 namespace FKTV
 {
@@ -26,7 +25,7 @@ namespace FKTV
 
         public void DataFormattingCSV() { }
 
-        public HTMLDocument? DataFormattingHTML(string Source,  string pluklisteName, string pluklisteAdresse)
+        public HTMLDocument? DataFormattingHTML(string Source, string pluklisteName, string pluklisteAdresse)
         {
             //from https://docs.aspose.com/html/ 
             // Create an instance of an HTML document
@@ -38,9 +37,9 @@ namespace FKTV
                 int placeName = Source.IndexOf(nameInTemplate);
                 string resultName = Source.Remove(placeName, nameInTemplate.Length).Insert(placeName, pluklisteName);
 
-                int placeAdress= Source.IndexOf(adressInTemplate);
+                int placeAdress = Source.IndexOf(adressInTemplate);
                 string resultAdress = Source.Remove(placeAdress, adressInTemplate.Length).Insert(placeAdress, pluklisteAdresse);
-                
+
                 //var body = documentHTML.Body;
 
                 //// Create a paragraph element
